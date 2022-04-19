@@ -1,1 +1,132 @@
-<p>tasks works!</p>
+<div class="row">
+  <div class="card col-6">
+    <div class="card-header">
+      <h1>Create new task</h1>
+    </div>
+    <div class="card-body">
+      <form (ngSubmit)="submit()">
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text">description</span>
+          </div>
+          <textarea name="description" class="form-control" ngDefaultControl [(ngModel)]="description"></textarea>
+        </div>
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text">project id</span>
+          </div>
+          <input type="number" name="project_id" [(ngModel)]="project_id" ngDefaultControl class="form-control"/>
+        </div>
+        <div class="input-group mb-3">
+          <div class="input-group-appen">
+            <span class="input-group-text">end time</span>
+          </div>
+          <input type="number" name="end_time" class="form-control" [(ngModel)]="end_time" ngDefaultControl/>
+        </div>
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text">task title</span>
+          </div>
+          <input type="text" name="title" class="form-control" [(ngModel)]="title" ngDefaultControl/>
+        </div>
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <span class="input-group-text">work location</span>
+          </div>
+          <input type="text" class="form-control" name="work_location" [(ngModel)]="work_location" ngDefaultControl/>
+        </div>
+        <input type="submit" class="btn btn-success col-6 mt-3"/>
+      </form>
+    </div>
+  </div>
+  <div class="col-6">
+    <div class="card">
+      <div class="card-header">
+        <h1>Delete a task</h1>
+      </div>
+      <div class="card-body">
+        <form (ngSubmit)="SubmitDeleteTask()">
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text">project id</span>
+            </div>
+            <input class="form-control" type="number" name="project_id" [(ngModel)]="task_id"/>
+          </div>
+          <input type="submit" class="btn btn-success"/>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="card col-6 mt-3">
+    <div class="card-header">
+      <h1>Edit a task</h1>
+    </div>
+    <div class="card-body">
+      <div class="input-group">
+        <div class="input-group-prepend">
+          <span class="input-group-text">task id</span>
+        </div>
+        <input type="number" class="form-control" [(ngModel)]="edit_task_id" ngDefaultControl name="task_id"/>
+        <input type="submit" class="btn btn-success" (click)="GetTask()" value="Load task"/>
+      </div>
+      <form class="mt-3" (ngSubmit)="EditTask()">
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text">description</span>
+          </div>
+          <textarea name="description" class="form-control" ngDefaultControl [(ngModel)]="edit_description"></textarea>
+        </div>
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text">project id</span>
+          </div>
+          <input type="number" name="project_id" [(ngModel)]="edit_project_id" ngDefaultControl class="form-control"/>
+        </div>
+        <div class="input-group mb-3">
+          <div class="input-group-appen">
+            <span class="input-group-text">end time</span>
+          </div>
+          <input type="number" name="end_time" class="form-control" [(ngModel)]="edit_end_time" ngDefaultControl/>
+        </div>
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text">task title</span>
+          </div>
+          <input type="text" name="title" class="form-control" [(ngModel)]="edit_title" ngDefaultControl/>
+        </div>
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <span class="input-group-text">work location</span>
+          </div>
+          <input type="text" class="form-control" name="work_location" [(ngModel)]="edit_work_location"
+                 ngDefaultControl/>
+        </div>
+        <input type="submit" class="btn btn-success col-6 mt-3"/>
+      </form>
+    </div>
+  </div>
+  <div class="col">
+    <div class="card">
+      <div class="card-header">
+        <h1>Change task status</h1>
+      </div>
+      <div class="card-body">
+        <form>
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text">task id</span>
+            </div>
+            <input type="number" name="task_id" class="form-control" [(ngModel)]="edit_status_task_id"/>
+            <div class="btn-group">
+              <button class="btn btn-success" (click)="ApproveTask()">Approve task</button>
+              <button class="btn btn-danger" (click)="RejectTask()">Reject task</button>
+              <button class="btn btn-secondary" (click)="SetTaskWaiting()">Waiting</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

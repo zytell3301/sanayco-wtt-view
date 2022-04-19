@@ -9,8 +9,8 @@
 <div class="container bar">
   <label class="floatLeft" for="navBtn"><span></span></label>
   <div class="col-3 center">
-    <button class="btn btn-success center" (click)="StorePresentation()">من اومدم</button>
-    <button class="btn btn-danger center" (click)="StorePresentationEnd()">دارم میرم</button>
+    <button class="btn btn-success center" (click)="StorePresentation()">Ready!</button>
+    <button class="btn btn-danger center" (click)="StorePresentationEnd()">Im leaving</button>
   </div>
 </div>
 <div class="container">
@@ -18,7 +18,7 @@
   <nav>
     <ul>
       <li>
-        <a href="#"><i class="fa fa-heart"></i>First Link</a>
+        <a routerLink="/tasks">Tasks</a>
       </li>
       <li>
         <a href="#"><i class="fa fa-medkit"></i>Second Link</a>
@@ -32,6 +32,10 @@
     </ul>
   </nav>
 </div>
-
+<div class="center">
+  <div class="col-9">
+    <router-outlet></router-outlet>
+  </div>
+</div>
 </body>
 </html>
