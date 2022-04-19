@@ -8,15 +8,18 @@ import {HttpClientModule} from "@angular/common/http";
 import {TasksComponent} from './tasks/tasks.component';
 import {RouterModule, Routes} from "@angular/router";
 import {FormsModule} from "@angular/forms";
+import {OfftimeComponent} from './offtime/offtime.component';
 
 const routes: Routes = [
   {path: "tasks", component: TasksComponent},
+  {path: "off-times", component: OfftimeComponent},
 ]
 
 @NgModule({
   declarations: [
     AppComponent,
-    TasksComponent
+    TasksComponent,
+    OfftimeComponent
   ],
   imports: [
     BrowserModule,
