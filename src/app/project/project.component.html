@@ -1,0 +1,113 @@
+<div class="row">
+  <div class="card col-6">
+    <div class="card-header">
+      <h1>Create new project</h1>
+    </div>
+    <div class="card-body">
+      <form (ngSubmit)="RecordProject()">
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text">description</span>
+          </div>
+          <textarea name="description" class="form-control" [(ngModel)]="description" ngDefaultControl></textarea>
+        </div>
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text">project name</span>
+          </div>
+          <input type="text" name="project_name" class="form-control" [(ngModel)]="name" ngDefaultControl/>
+        </div>
+        <input type="submit" class="btn btn-success col-6 mt-3"/>
+      </form>
+    </div>
+  </div>
+  <div class="col-6">
+    <div class="card">
+      <div class="card-header">
+        <h1>Delete a project</h1>
+      </div>
+      <div class="card-body">
+        <form>
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text">project id</span>
+            </div>
+            <input class="form-control" type="number" name="project_id" [(ngModel)]="delete_project_id"/>
+          </div>
+          <input type="submit" class="btn btn-success" (click)="DeleteProject()"/>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="card col-6 mt-3">
+    <div class="card-header">
+      <h1>Edit a project</h1>
+    </div>
+    <div class="card-body">
+      <div class="input-group">
+        <div class="input-group-prepend">
+          <span class="input-group-text">project id</span>
+        </div>
+        <input type="number" class="form-control" name="project_id" [(ngModel)]="edit_project_id" ngDefaultControl/>
+        <input type="submit" class="btn btn-success" value="Load task" (click)="LoadProject()"/>
+      </div>
+      <form class="mt-3" (ngSubmit)="UpdateProject()">
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text">description</span>
+          </div>
+          <textarea name="description" class="form-control" [(ngModel)]="edit_project_description"></textarea>
+        </div>
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text">project title</span>
+          </div>
+          <input type="text" name="title" class="form-control" [(ngModel)]="edit_project_name"/>
+        </div>
+        <input type="submit" class="btn btn-success col-6 mt-3"/>
+      </form>
+    </div>
+  </div>
+  <div class="col">
+    <div class="card">
+      <div class="card-header">
+        <h1>Change task status</h1>
+      </div>
+      <div class="card-body">
+        <form>
+          <div class="input-group">
+            <input type="number" placeholder="project id" name="project_id" class="form-control"
+                   [(ngModel)]="add_member_project_id"/>
+            <input type="number" placeholder="user id" name="user_id" class="form-control"
+                   [(ngModel)]="add_member_user_id"/>
+            <input type="text" name="level" placeholder="member level" class="form-control"
+                   [(ngModel)]="add_member_level"/>
+            <button class="btn btn-success" (click)="AddMember()">Add member</button>
+          </div>
+        </form>
+        <form>
+          <div class="input-group mt-3">
+            <input type="number" placeholder="project id" name="project_id" class="form-control"
+                   [(ngModel)]="delete_member_project_id"/>
+            <input type="number" placeholder="user id" name="user_id" class="form-control"
+                   [(ngModel)]="delete_member_user_id"/>
+            <button class="btn btn-danger" (click)="DeleteMember()">Delete!</button>
+          </div>
+        </form>
+        <form>
+          <div class="input-group mt-3">
+            <input type="number" placeholder="project id" name="project_id" class="form-control"
+                   [(ngModel)]="update_project_member_project_id"/>
+            <input type="number" placeholder="user id" name="user_id" class="form-control"
+                   [(ngModel)]="update_project_member_user_id"/>
+            <input type="text" name="level" placeholder="member level" class="form-control"
+                   [(ngModel)]="update_project_member_level"/>
+            <button class="btn btn-success" (click)="UpdateProjectMember()">Update</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

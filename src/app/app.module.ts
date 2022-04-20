@@ -9,17 +9,20 @@ import {TasksComponent} from './tasks/tasks.component';
 import {RouterModule, Routes} from "@angular/router";
 import {FormsModule} from "@angular/forms";
 import {OfftimeComponent} from './offtime/offtime.component';
+import {ProjectComponent} from './project/project.component';
 
 const routes: Routes = [
   {path: "tasks", component: TasksComponent},
   {path: "off-times", component: OfftimeComponent},
+  {path: "projects", component: ProjectComponent},
 ]
 
 @NgModule({
   declarations: [
     AppComponent,
     TasksComponent,
-    OfftimeComponent
+    OfftimeComponent,
+    ProjectComponent
   ],
   imports: [
     BrowserModule,
