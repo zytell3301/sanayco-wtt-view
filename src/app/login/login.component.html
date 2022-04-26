@@ -1,0 +1,24 @@
+<div class="col-6">
+  <div class="card">
+    <div class="card-header">
+      <h1>Login</h1>
+    </div>
+    <div class="card-body">
+      <form class="align-content-center" (submit)="Login()">
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <span class="input-group-text">username</span>
+          </div>
+          <input type="text" name="username" class="form-control" [(ngModel)]="username"/>
+        </div>
+        <div class="input-group mt-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text">password</span>
+          </div>
+          <input type="password" class="form-control" name="password" [(ngModel)]="password"/>
+        </div>
+        <button class="btn btn-success mt-3">Login!</button>
+      </form>
+    </div>
+  </div>
+</div>

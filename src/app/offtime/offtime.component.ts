@@ -1,6 +1,8 @@
 import {Component, OnInit} from '@angular/core';
-import {HttpClient} from "@angular/common/http";
+import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {GetOffTimeResponse} from "./GetOffTimeResponse";
+import {Router} from "@angular/router";
+import {Token} from "@angular/compiler";
 
 @Component({
   selector: 'app-offtime',
@@ -24,12 +26,24 @@ export class OfftimeComponent implements OnInit {
   edit_off_time_from_date: number = 0;
 
   private httpClient: HttpClient;
+  private router: Router;
+  private token: string = "";
 
-  constructor(client: HttpClient) {
+  constructor(client: HttpClient, router: Router) {
     this.httpClient = client;
+    this.router = router;
   }
 
   ngOnInit(): void {
+    switch (localStorage.getItem("_token") == null) {
+      case true:
+        this.router.navigate(["/login"]);
+    }
+    this.token = String(localStorage.getItem("_token"))
+  }
+
+  private defaultAuthHeaders() {
+    return new HttpHeaders({"_token": this.token})
   }
 
   RecordOffTime() {
@@ -38,7 +52,7 @@ export class OfftimeComponent implements OnInit {
       from_date: this.from_date,
       to_date: this.to_date,
       user_id: this.user_id,
-    }).subscribe(response => {
+    }, {headers: this.defaultAuthHeaders()}).subscribe(response => {
       console.log(response);
     });
   }
@@ -46,7 +60,7 @@ export class OfftimeComponent implements OnInit {
   ApproveOffTime() {
     this.httpClient.post("https://localhost:5001/off-times/approve-off-time", {
       off_time_id: this.change_status_off_time_id,
-    }).subscribe(response => {
+    }, {headers: this.defaultAuthHeaders()}).subscribe(response => {
       console.log(response);
     })
   }
@@ -54,7 +68,7 @@ export class OfftimeComponent implements OnInit {
   RejectOffTime() {
     this.httpClient.post("https://localhost:5001/off-times/reject-off-time", {
       off_time_id: this.change_status_off_time_id,
-    }).subscribe(response => {
+    }, {headers: this.defaultAuthHeaders()}).subscribe(response => {
       console.log(response)
     })
   }
@@ -62,7 +76,7 @@ export class OfftimeComponent implements OnInit {
   SetOffTimeStatusWaiting() {
     this.httpClient.post("https://localhost:5001/off-times/set-off-time-waiting", {
       off_time_id: this.change_status_off_time_id,
-    }).subscribe(response => {
+    }, {headers: this.defaultAuthHeaders()}).subscribe(response => {
       console.log(response);
     });
   }
@@ -70,7 +84,7 @@ export class OfftimeComponent implements OnInit {
   CancelOffTime() {
     this.httpClient.post("https://localhost:5001/off-times/cancel-off-time", {
       off_time_id: this.cancel_off_time_id,
-    }).subscribe(response => {
+    }, {headers: this.defaultAuthHeaders()}).subscribe(response => {
       console.log(response)
     });
   }

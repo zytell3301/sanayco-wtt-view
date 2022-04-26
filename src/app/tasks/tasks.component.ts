@@ -1,7 +1,9 @@
 import {Component, OnInit} from '@angular/core';
-import {HttpClient} from "@angular/common/http";
+import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {Task} from "../entities/Task";
 import {GetTaskResponse} from "./GetTaskResponse";
+import {AppComponent} from "../app.component";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-tasks',
@@ -27,13 +29,18 @@ export class TasksComponent implements OnInit {
   edit_status_task_id: number = 0;
 
   private httpClient: HttpClient;
+  private router: Router;
 
-  constructor(client: HttpClient) {
+  constructor(client: HttpClient, router: Router) {
     this.httpClient = client;
+    this.router = router;
   }
 
   ngOnInit(): void {
-
+    switch (localStorage.getItem("_token") == null) {
+      case true:
+        this.router.navigate(["/login"]);
+    }
   }
 
   submit() {
@@ -115,5 +122,4 @@ export class TasksComponent implements OnInit {
       console.log(response);
     });
   }
-
 }

@@ -1,0 +1,229 @@
+<div class="row">
+  <div class="card col-6">
+    <div class="card-header">
+      <h1>Create new user</h1>
+    </div>
+    <div class="card-body">
+      <form (submit)="CreateUser()">
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text">name</span>
+          </div>
+          <input type="text" name="name" class="form-control" [(ngModel)]="name" ngDefaultControl/>
+        </div>
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text">lastname</span>
+          </div>
+          <input type="text" name="lastname" class="form-control" [(ngModel)]="lastname" ngDefaultControl/>
+        </div>
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text">company level</span>
+          </div>
+          <input type="text" name="company_level" class="form-control" [(ngModel)]="company_level" ngDefaultControl/>
+        </div>
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text">skill level</span>
+          </div>
+          <input type="text" name="skill_level" class="form-control" [(ngModel)]="skill_level" ngDefaultControl/>
+        </div>
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text">username</span>
+          </div>
+          <input type="username" name="username" class="form-control" [(ngModel)]="username" ngDefaultControl/>
+        </div>
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text">password</span>
+          </div>
+          <input type="password" name="password" class="form-control" [(ngModel)]="password" ngDefaultControl/>
+        </div>
+        <div class="row">
+          <div class="form-check col-3">
+            <input class="form-check-input" type="checkbox" value="" id="create-project"
+                   (click)="TogglePermission('create-project')">
+            <label class="form-check-label" for="create-project">
+              create-project
+            </label>
+          </div>
+          <div class="form-check col-3">
+            <input class="form-check-input" type="checkbox" value="" id="edit-project"
+                   (click)="TogglePermission('edit-project')">
+            <label class="form-check-label" for="edit-project">
+              edit-project
+            </label>
+          </div>
+          <div class="form-check col-3">
+            <input class="form-check-input" type="checkbox" value="" id="create-user"
+                   (click)="TogglePermission('register-user')">
+            <label class="form-check-label" for="create-user">
+              create-user
+            </label>
+          </div>
+          <div class="form-check col-3">
+            <input class="form-check-input" type="checkbox" value="" id="record-off-time"
+                   (click)="TogglePermission('record-off-time')">
+            <label class="form-check-label" for="record-off-time">
+              record-off-time
+            </label>
+          </div>
+          <div class="form-check col-3">
+            <input class="form-check-input" type="checkbox" value="" id="change-off-time-status"
+                   (click)="TogglePermission('change-off-time-status')">
+            <label class="form-check-label" for="change-off-time-status">
+              change-off-time-status
+            </label>
+          </div>
+          <div class="form-check col-3">
+            <input class="form-check-input" type="checkbox" value="" id="edit-user"
+                   (click)="TogglePermission('edit-user')">
+            <label class="form-check-label" for="edit-user">
+              edit-user
+            </label>
+          </div>
+          <div class="form-check col-3">
+            <input class="form-check-input" type="checkbox" value="" id="delete-user" name="delete-user"
+                   (click)="TogglePermission('delete-user')">
+            <label class="form-check-label" for="delete-user">
+              delete-user
+            </label>
+          </div>
+        </div>
+        <input type="submit" class="btn btn-success col-6 mt-3"/>
+      </form>
+    </div>
+  </div>
+  <div class="col-6">
+    <div class="card">
+      <div class="card-header">
+        <h1>Delete a user</h1>
+      </div>
+      <div class="card-body">
+        <form (ngSubmit)="DeleteUser()">
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text">username</span>
+            </div>
+            <input class="form-control" type="text" name="project_id" [(ngModel)]="delete_user_username"
+                   ngDefaultControl/>
+          </div>
+          <input type="submit" class="btn btn-success"/>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="card col-6">
+    <div class="card-header">
+      <h1>edit an existing user</h1>
+    </div>
+    <div class="card-body">
+      <div class="input-group mb-3">
+        <span class="input-group-text">username</span>
+        <input type="text" name="user_username" class="form-control" [(ngModel)]="load_user_username"
+               ngDefaultControl/>
+        <button class="btn btn-success" (click)="LoadUser()">Load user!</button>
+      </div>
+      <form (submit)="UpdateUser()">
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text">name</span>
+          </div>
+          <input type="text" name="name" class="form-control" [(ngModel)]="edit_user_name" ngDefaultControl/>
+        </div>
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text">lastname</span>
+          </div>
+          <input type="text" name="lastname" class="form-control" [(ngModel)]="edit_user_lastname" ngDefaultControl/>
+        </div>
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text">company level</span>
+          </div>
+          <input type="text" name="company_level" class="form-control" [(ngModel)]="edit_user_company_level"
+                 ngDefaultControl/>
+        </div>
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text">skill level</span>
+          </div>
+          <input type="text" name="skill_level" class="form-control" [(ngModel)]="edit_user_skill_level"
+                 ngDefaultControl/>
+        </div>
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text">username</span>
+          </div>
+          <input type="username" name="username" class="form-control" [(ngModel)]="edit_user_username"
+                 ngDefaultControl/>
+        </div>
+        <div class="row">
+          <div class="form-check col-3">
+            <input class="form-check-input" type="checkbox" value="" id="edit_create-project" name="edit_create-project"
+                   (click)="edit_TogglePermission('create-project')"
+                   [(ngModel)]="edit_user_init_perms.create_project" ngDefaultControl>
+            <label class="form-check-label" for="edit_create-project">
+              create-project
+            </label>
+          </div>
+          <div class="form-check col-3">
+            <input class="form-check-input" type="checkbox" value="" id="edit_edit-project"
+                   [(ngModel)]="edit_user_init_perms.edit_project" ngDefaultControl name="edit_edit-project"
+                   (click)="edit_TogglePermission('edit-project')">
+            <label class="form-check-label" for="edit_edit-project">
+              edit-project
+            </label>
+          </div>
+          <div class="form-check col-3">
+            <input class="form-check-input" type="checkbox" value="" id="edit_create-user"
+                   [(ngModel)]="edit_user_init_perms.create_user" ngDefaultControl name="edit_create-user"
+                   (click)="edit_TogglePermission('register-user')">
+            <label class="form-check-label" for="edit_create-user">
+              create-user
+            </label>
+          </div>
+          <div class="form-check col-3">
+            <input class="form-check-input" type="checkbox" value="" id="edit_record-off-time"
+                   [(ngModel)]="edit_user_init_perms.record_off_time"
+                   name="edit_record-off-time"
+                   (click)="edit_TogglePermission('record-off-time')">
+            <label class="form-check-label" for="edit_record-off-time">
+              record-off-time
+            </label>
+          </div>
+          <div class="form-check col-3">
+            <input class="form-check-input" type="checkbox" value="" id="edit_change-off-time-status"
+                   [(ngModel)]="edit_user_init_perms.change_off_time_status"
+                   name="edit_change-off-time-status"
+                   (click)="edit_TogglePermission('change-off-time-status')">
+            <label class="form-check-label" for="edit_change-off-time-status">
+              change-off-time-status
+            </label>
+          </div>
+          <div class="form-check col-3">
+            <input class="form-check-input" type="checkbox" value="" id="edit_edit-user" name="edit_edit-user"
+                   [(ngModel)]="edit_user_init_perms.edit_user"
+                   (click)="edit_TogglePermission('edit-user')">
+            <label class="form-check-label" for="edit_edit-user">
+              edit-user
+            </label>
+          </div>
+          <div class="form-check col-3">
+            <input class="form-check-input" type="checkbox" value="" id="edit_delete-user" name="edit_edit-user"
+                   [(ngModel)]="edit_user_init_perms.delete_user"
+                   (click)="edit_TogglePermission('delete-user')">
+            <label class="form-check-label" for="edit_delete-user">
+              delete-user
+            </label>
+          </div>
+        </div>
+        <input type="submit" class="btn btn-success col-6 mt-3"/>
+      </form>
+    </div>
+  </div>
+</div>

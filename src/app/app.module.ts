@@ -10,11 +10,15 @@ import {RouterModule, Routes} from "@angular/router";
 import {FormsModule} from "@angular/forms";
 import {OfftimeComponent} from './offtime/offtime.component';
 import {ProjectComponent} from './project/project.component';
+import {LoginComponent} from './login/login.component';
+import {UsersComponent} from './users/users.component';
 
 const routes: Routes = [
   {path: "tasks", component: TasksComponent},
   {path: "off-times", component: OfftimeComponent},
   {path: "projects", component: ProjectComponent},
+  {path: "login", component: LoginComponent},
+  {path: "users", component: UsersComponent}
 ]
 
 @NgModule({
@@ -22,7 +26,9 @@ const routes: Routes = [
     AppComponent,
     TasksComponent,
     OfftimeComponent,
-    ProjectComponent
+    ProjectComponent,
+    LoginComponent,
+    UsersComponent
   ],
   imports: [
     BrowserModule,

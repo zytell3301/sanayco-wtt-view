@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {GetProjectResponse} from "./GetProjectResponse";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-project',
@@ -32,12 +33,18 @@ export class ProjectComponent implements OnInit {
   private creator: number = 4;
 
   private httpClient: HttpClient;
+  private router: Router;
 
-  constructor(client: HttpClient) {
+  constructor(client: HttpClient, router: Router) {
     this.httpClient = client;
+    this.router = router;
   }
 
   ngOnInit(): void {
+    switch (localStorage.getItem("_token") == null) {
+      case true:
+        this.router.navigate(["login"]);
+    }
   }
 
   RecordProject() {
