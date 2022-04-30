@@ -1,0 +1,143 @@
+<div class="row">
+  <div class="card col-6">
+    <div class="card-header">
+      <h1>Record mission</h1>
+    </div>
+    <div class="card-body">
+      <form (submit)="submitMission()">
+        <div class="input-group mb-3">
+          <span class="input-group-text">Title</span>
+          <input [(ngModel)]="SubmitMissionFields.title" class="form-control" name="title" ngDefaultControl
+                 type="text"/>
+        </div>
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text">description</span>
+          </div>
+          <textarea [(ngModel)]="SubmitMissionFields.description" class="form-control" name="description"
+                    ngDefaultControl></textarea>
+        </div>
+        <div class="input-group mb-3">
+          <div class="input-group-append">
+            <span class="input-group-text">from date</span>
+          </div>
+          <input [(ngModel)]="SubmitMissionFields.from_date" class="form-control" name="from_date" ngDefaultControl
+                 type="number"/>
+        </div>
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text">to date</span>
+          </div>
+          <input [(ngModel)]="SubmitMissionFields.to_date" class="form-control" name="to_date" ngDefaultControl
+                 type="number"/>
+        </div>
+        <div class="input-group mb-3">
+          <span class="input-group-text">project id</span>
+          <input [(ngModel)]="SubmitMissionFields.project_id" class="form-control" name="project_id" ngDefaultControl
+                 type="number"/>
+        </div>
+        <div class="input-group">
+          <span class="input-group-text">location</span>
+          <input [(ngModel)]="SubmitMissionFields.location" class="form-control" name="location" ngDefaultControl
+                 type="text"/>
+        </div>
+        <input class="btn btn-success col-6 mt-3" type="submit"/>
+      </form>
+    </div>
+  </div>
+  <div class="col-6">
+    <div class="card">
+      <div class="card-header">
+        <h1>delete mission</h1>
+      </div>
+      <div class="card-body">
+        <form (submit)="DeleteMission()">
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text">mission id</span>
+            </div>
+            <input [(ngModel)]="DeleteMissionFields.mission_id" class="form-control" name="mission_id" ngDefaultControl
+                   type="number"/>
+          </div>
+          <input class="btn btn-success" type="submit"/>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="card col-6 mt-3">
+    <div class="card-header">
+      <h1>edit a mission</h1>
+    </div>
+    <div class="card-body">
+      <div class="input-group">
+        <div class="input-group-prepend">
+          <span class="input-group-text">mission id</span>
+        </div>
+        <input [(ngModel)]="GetMissionFields.mission_id" class="form-control" name="off_time_id" type="number"/>
+        <input (click)="GetMission()" class="btn btn-success" type="submit" value="Load task"/>
+      </div>
+      <form (submit)="UpdateMission()">
+        <div class="input-group mb-3 mt-3">
+          <span class="input-group-text">Title</span>
+          <input [(ngModel)]="EditMissionFields.title" class="form-control" name="title" ngDefaultControl
+                 type="text"/>
+        </div>
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text">description</span>
+          </div>
+          <textarea [(ngModel)]="EditMissionFields.description" class="form-control" name="description"
+                    ngDefaultControl></textarea>
+        </div>
+        <div class="input-group mb-3">
+          <div class="input-group-append">
+            <span class="input-group-text">from date</span>
+          </div>
+          <input [(ngModel)]="EditMissionFields.from_date" class="form-control" name="from_date" ngDefaultControl
+                 type="number"/>
+        </div>
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text">to date</span>
+          </div>
+          <input [(ngModel)]="EditMissionFields.to_date" class="form-control" name="to_date" ngDefaultControl
+                 type="number"/>
+        </div>
+        <div class="input-group mb-3">
+          <span class="input-group-text">project id</span>
+          <input [(ngModel)]="EditMissionFields.project_id" class="form-control" name="project_id" ngDefaultControl
+                 type="number"/>
+        </div>
+        <div class="input-group">
+          <span class="input-group-text">location</span>
+          <input [(ngModel)]="EditMissionFields.location" class="form-control" name="location" ngDefaultControl
+                 type="text"/>
+        </div>
+        <input class="btn btn-success col-6 mt-3" type="submit"/>
+      </form>
+    </div>
+  </div>
+  <div class="col">
+    <div class="card">
+      <div class="card-header">
+        <h1>Change mission status</h1>
+      </div>
+      <div class="card-body">
+        <form>
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text">task id</span>
+            </div>
+            <input [(ngModel)]="ChangeMissionStatusFields.mission_id" class="form-control" name="mission_id"
+                   ngDefaultControl type="number"/>
+            <div class="btn-group">
+              <button (click)="SetMissionApproved()" class="btn btn-success">Approve mission</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

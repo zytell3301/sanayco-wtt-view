@@ -1,0 +1,98 @@
+<div class="row">
+  <div class="card col-6">
+    <div class="card-header">
+      <h1>Create new food</h1>
+    </div>
+    <div class="card-body">
+      <form (ngSubmit)="CreateNewFood()">
+        <div class="input-group mb-3">
+          <span class="input-group-text">food title</span>
+          <input [(ngModel)]="CreateFoodFields.title" class="form-control" name="food_name" ngDefaultControl
+                 type="text"/>
+        </div>
+        <div class="input-group mb-3">
+          <span class="input-group-text">food price</span>
+          <input [(ngModel)]="CreateFoodFields.price" class="form-control" name="project_id" ngDefaultControl
+                 type="number"/>
+        </div>
+        <div class="form-check col-3">
+          <input [(ngModel)]="CreateFoodFields.is_available" class="form-check-input" id="food_available"
+                 name="edit_create-user"
+                 ngDefaultControl
+                 type="checkbox">
+          <label class="form-check-label" for="food_available">
+            is available
+          </label>
+        </div>
+        <input class="btn btn-success col-6 mt-3" type="submit"/>
+      </form>
+    </div>
+  </div>
+  <div class="col-6">
+    <div class="card">
+      <div class="card-header">
+        <h1>Delete a food</h1>
+      </div>
+      <div class="card-body">
+        <form (ngSubmit)="DeleteFood()">
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text">food if</span>
+            </div>
+            <input [(ngModel)]="DeleteFoodFields.food_id" class="form-control" name="food_id" type="number"/>
+          </div>
+          <input class="btn btn-success" type="submit"/>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="card col-6 mt-3">
+    <div class="card-header">
+      <h1>Edit a food</h1>
+    </div>
+    <div class="card-body">
+      <div class="input-group">
+        <div class="input-group-prepend">
+          <span class="input-group-text">food id</span>
+        </div>
+        <input [(ngModel)]="EditFoodFields.food_id" class="form-control" name="food_id" ngDefaultControl type="number"/>
+        <input (click)="GetFoodInfo()" class="btn btn-success" type="submit" value="Load task"/>
+      </div>
+      <form (submit)="UpdateFoodInfo()" class="mt-3">
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text">food title</span>
+          </div>
+          <input [(ngModel)]="EditFoodFields.title" class="form-control" name="title" ngDefaultControl/>
+        </div>
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text">food price</span>
+          </div>
+          <input [(ngModel)]="EditFoodFields.price" class="form-control" name="price" ngDefaultControl type="number"/>
+        </div>
+        <input class="btn btn-success col-6 mt-3" type="submit"/>
+      </form>
+    </div>
+  </div>
+  <div class="col">
+    <div class="card">
+      <div class="card-header">
+        <h1>Change food availability</h1>
+      </div>
+      <div class="card-body">
+        <form>
+          <div class="input-group">
+            <span class="input-group-text">food id</span>
+            <input [(ngModel)]="ChangeFoodStatusFields.food_id" class="form-control" name="task_id" ngDefaultControl
+                   type="number"/>
+            <button (click)="SetFoodAvailable()" class="btn btn-success">Set available</button>
+            <button (click)="SetFoodUnavailable()" class="btn btn-danger">Set unavailable</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

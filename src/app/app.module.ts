@@ -12,13 +12,19 @@ import {OfftimeComponent} from './offtime/offtime.component';
 import {ProjectComponent} from './project/project.component';
 import {LoginComponent} from './login/login.component';
 import {UsersComponent} from './users/users.component';
+import {MissionComponent} from './mission/mission.component';
+import {FoodsComponent} from './foods/foods.component';
+import {OrdersComponent} from './orders/orders.component';
 
 const routes: Routes = [
   {path: "tasks", component: TasksComponent},
   {path: "off-times", component: OfftimeComponent},
   {path: "projects", component: ProjectComponent},
   {path: "login", component: LoginComponent},
-  {path: "users", component: UsersComponent}
+  {path: "users", component: UsersComponent},
+  {path: "missions", component: MissionComponent},
+  {path: "foods", component: FoodsComponent},
+  {path: "orders", component: OrdersComponent},
 ]
 
 @NgModule({
@@ -28,7 +34,10 @@ const routes: Routes = [
     OfftimeComponent,
     ProjectComponent,
     LoginComponent,
-    UsersComponent
+    UsersComponent,
+    MissionComponent,
+    FoodsComponent,
+    OrdersComponent
   ],
   imports: [
     BrowserModule,

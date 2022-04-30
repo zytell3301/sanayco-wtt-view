@@ -1,0 +1,35 @@
+<div class="row">
+  <div class="card col-6">
+    <div class="card-header">
+      <h1>Order food</h1>
+    </div>
+    <div class="card-body">
+      <form (submit)="RecordOrder()">
+        <div class="input-group mb-3">
+          <span class="input-group-text">food id</span>
+          <input [(ngModel)]="RecordOrderFields.food_id" class="form-control" name="food_id" ngDefaultControl
+                 type="number"/>
+        </div>
+        <input class="btn btn-success col-6 mt-3" type="submit"/>
+      </form>
+    </div>
+  </div>
+  <div class="col-6">
+    <div class="card">
+      <div class="card-header">
+        <h1>Cancel order</h1>
+      </div>
+      <div class="card-body">
+        <form (submit)="CancelOrder()">
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text">food id</span>
+            </div>
+            <input [(ngModel)]="CancelOrderFields.order_id" class="form-control" name="food_id" type="number"/>
+          </div>
+          <input class="btn btn-success" type="submit"/>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
