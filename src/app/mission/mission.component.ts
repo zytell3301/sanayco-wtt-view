@@ -1,6 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {Router} from "@angular/router";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
+import {FormControl} from "@angular/forms";
+import moment from "moment-jalaali";
 
 @Component({
   selector: 'app-mission',
@@ -45,8 +47,8 @@ export class MissionComponent implements OnInit {
       description: this.SubmitMissionFields.description,
       title: this.SubmitMissionFields.title,
       location: this.SubmitMissionFields.location,
-      from_date: this.SubmitMissionFields.from_date,
-      to_date: this.SubmitMissionFields.to_date,
+      from_date: moment(this.SubmitMissionFields.from_date.value, "YYYY-MM-DD").valueOf() / 1000,
+      to_date: moment(this.SubmitMissionFields.to_date.value, "YYYY-MM-DD").valueOf() / 1000,
       project_id: this.SubmitMissionFields.project_id,
     }, {headers: this.defaultAuthHeaders()}).subscribe(response => {
       console.log(response);
@@ -64,13 +66,12 @@ export class MissionComponent implements OnInit {
   public GetMission() {
     this.httpClient.get<GetMissionResponse>("https://localhost:5001/missions/get-mission/" + this.GetMissionFields.mission_id, {headers: this.defaultAuthHeaders()}).subscribe(response => {
       this.EditMissionFields.mission_id = response.mission.id;
-      this.EditMissionFields.to_date = Date.parse(response.mission.to_date).valueOf();
+      this.EditMissionFields.to_date.setValue(moment(response.mission.to_date).format("YYYY-MM-DD"))
       this.EditMissionFields.title = response.mission.title;
       this.EditMissionFields.project_id = response.mission.project_id;
       this.EditMissionFields.description = response.mission.description;
       this.EditMissionFields.location = response.mission.location;
-      this.EditMissionFields.from_date = Date.parse(response.mission.from_date).valueOf();
-
+      this.EditMissionFields.from_date.setValue(moment(response.mission.from_date).format("YYYY-MM-DD"))
     })
   }
 
@@ -79,8 +80,8 @@ export class MissionComponent implements OnInit {
       mission_id: this.EditMissionFields.mission_id,
       title: this.EditMissionFields.title,
       description: this.EditMissionFields.description,
-      from_date: this.EditMissionFields.from_date,
-      to_date: this.EditMissionFields.to_date,
+      from_date: moment(this.EditMissionFields.from_date.value, "YYYY-MM-DD").valueOf() / 1000,
+      to_date: moment(this.EditMissionFields.to_date.value, "YYYY-MM-DD").valueOf() / 1000,
       project_id: this.EditMissionFields.project_id,
       location: this.EditMissionFields.location,
     }, {headers: this.defaultAuthHeaders()}).subscribe(response => {
@@ -116,8 +117,8 @@ export class MissionComponent implements OnInit {
 class SubmitMissionFields {
   public title: string = "";
   public description: string = "";
-  public from_date: number = 0;
-  public to_date: number = 0;
+  public from_date = new FormControl();
+  public to_date = new FormControl();
   public project_id: number = 0;
   public location: string = "";
 }
@@ -126,8 +127,8 @@ class EditMissionFields {
   public mission_id: number = 0;
   public title: string = "";
   public description: string = "";
-  public from_date: number = 0;
-  public to_date: number = 0;
+  public from_date = new FormControl();
+  public to_date = new FormControl();
   public project_id: number = 0;
   public location: string = "";
   public is_verified: boolean = false;

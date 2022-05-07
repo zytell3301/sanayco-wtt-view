@@ -2,6 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {GetTaskResponse} from "./GetTaskResponse";
 import {Router} from "@angular/router";
+import {FormControl} from "@angular/forms";
+import moment from "moment-jalaali";
 
 @Component({
   selector: 'app-tasks',
@@ -13,16 +15,18 @@ export class TasksComponent implements OnInit {
   description: string = "";
   project_id: number = 0;
   title: string = "";
-  end_time: number = 0;
+  task_point: number = 0;
   work_location: string = "";
   task_id: number = 0;
+  start_time = new FormControl();
 
   edit_description: string = "";
   edit_project_id: number = 0;
   edit_title: string = "";
-  edit_end_time: number = 0;
   edit_work_location: string = "";
   edit_task_id: number = 0;
+  edit_task_start_time = new FormControl();
+  edit_task_points = 0;
 
   edit_status_task_id: number = 0;
 
@@ -50,12 +54,12 @@ export class TasksComponent implements OnInit {
 
   submit() {
     this.httpClient.post("https://localhost:5001/tasks/submit-task", {
-      user_id: 4,
       description: this.description,
       project_id: this.project_id,
       title: this.title,
-      end_time: this.end_time,
       work_location: this.work_location,
+      start_time: moment(this.start_time.value, "YYYY-MM-DD").valueOf(),
+      points: this.task_point,
     }, {headers: this.defaultAuthHeaders()}).subscribe(response => {
       console.log(response);
     });
@@ -79,7 +83,8 @@ export class TasksComponent implements OnInit {
           this.edit_title = task.Task.Title;
           this.edit_work_location = task.Task.WorkLocation;
           this.edit_project_id = task.Task.ProjectId;
-          this.edit_end_time = Date.parse(task.Task.EndTime) - Date.parse("1970-01-1 00:00:00");
+          this.edit_task_start_time.setValue(moment(task.Task.StartTime).format("YYYY-MM-DD"));
+          this.edit_task_points = task.Task.Points;
           break;
         default:
           this.edit_task_id = 0;
@@ -87,7 +92,6 @@ export class TasksComponent implements OnInit {
           this.edit_title = "";
           this.edit_work_location = "";
           this.edit_project_id = 0;
-          this.edit_end_time = 0;
       }
     });
   }
@@ -96,7 +100,8 @@ export class TasksComponent implements OnInit {
     this.httpClient.post("https://localhost:5001/tasks/edit-task", {
       task_id: this.edit_task_id,
       description: this.edit_description,
-      end_time: this.edit_end_time,
+      start_time: moment(this.edit_task_start_time.value, "YYYY-MM-DD").valueOf(),
+      points: this.edit_task_points,
       title: this.edit_title,
       work_location: this.edit_work_location,
     }, {headers: this.defaultAuthHeaders()}).subscribe(response => {

@@ -2,6 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {GetOffTimeResponse} from "./GetOffTimeResponse";
 import {Router} from "@angular/router";
+import {FormControl} from "@angular/forms";
+import moment from "moment-jalaali";
 
 @Component({
   selector: 'app-offtime',
@@ -11,8 +13,8 @@ import {Router} from "@angular/router";
 export class OfftimeComponent implements OnInit {
 
   description: string = "";
-  from_date: number = 0;
-  to_date: number = 0;
+  from_date = new FormControl();
+  to_date = new FormControl();
   user_id: number = 4;
 
   change_status_off_time_id: number = 0;
@@ -21,8 +23,8 @@ export class OfftimeComponent implements OnInit {
 
   edit_off_time_id: number = 0;
   edit_off_time_description: string = "";
-  edit_off_time_to_date: number = 0;
-  edit_off_time_from_date: number = 0;
+  edit_off_time_to_date = new FormControl();
+  edit_off_time_from_date = new FormControl();
 
   private httpClient: HttpClient;
   private router: Router;
@@ -48,8 +50,8 @@ export class OfftimeComponent implements OnInit {
   RecordOffTime() {
     this.httpClient.post("https://localhost:5001/off-times/record-off-time", {
       description: this.description,
-      from_date: this.from_date,
-      to_date: this.to_date,
+      from_date: moment(this.from_date.value, "YYYY-MM-DD").valueOf() / 1000,
+      to_date: moment(this.to_date.value, "YYYY-MM-DD").valueOf() / 1000,
       user_id: this.user_id,
     }, {headers: this.defaultAuthHeaders()}).subscribe(response => {
       console.log(response);
@@ -91,8 +93,8 @@ export class OfftimeComponent implements OnInit {
   LoadOffTimeData() {
     this.httpClient.get<GetOffTimeResponse>("https://localhost:5001/off-times/get-off-time/" + this.edit_off_time_id).subscribe(response => {
       this.edit_off_time_description = response.OffTime.Description;
-      this.edit_off_time_to_date = Date.parse(response.OffTime.ToDate).valueOf();
-      this.edit_off_time_from_date = Date.parse(response.OffTime.FromDate).valueOf();
+      this.edit_off_time_to_date.setValue(moment(response.OffTime.ToDate).format("YYYY-MM-DD"));
+      this.edit_off_time_from_date.setValue(moment(response.OffTime.FromDate).format("YYYY-MM-DD"));
     });
   }
 
@@ -100,8 +102,8 @@ export class OfftimeComponent implements OnInit {
     this.httpClient.post("https://localhost:5001/off-times/edit-off-time", {
       off_time_id: this.edit_off_time_id,
       description: this.edit_off_time_description,
-      from_date: this.edit_off_time_from_date,
-      to_date: this.edit_off_time_to_date,
+      from_date: moment(this.edit_off_time_from_date.value, "YYYY-MM-DD").valueOf() / 1000,
+      to_date: moment(this.edit_off_time_to_date.value, "YYYY-MM-DD").valueOf() / 1000,
     }, {headers: this.defaultAuthHeaders()}).subscribe(response => {
       console.log(response);
     })

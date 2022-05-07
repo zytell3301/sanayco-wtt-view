@@ -11,11 +11,17 @@
         </div>
         <div class="input-group mb-3">
           <span class="input-group-text">from date</span>
-          <input [(ngModel)]="from_date" class="form-control" name="from_date" type="number"/>
+          <ng-persian-datepicker [dateFormat]="'YYYY-MM-DD'" [timeEnable]="false">
+            <input [formControl]="from_date" class="form-control" type="text"/>
+          </ng-persian-datepicker>
+          <!--          <input [(ngModel)]="from_date" class="form-control" name="from_date" type="number"/>-->
         </div>
         <div class="input-group mb-3">
           <span class="input-group-text">to date</span>
-          <input [(ngModel)]="to_date" class="form-control" name="to_date" type="number"/>
+          <ng-persian-datepicker [dateFormat]="'YYYY-MM-DD'" [timeEnable]="false">
+            <input [formControl]="to_date" class="form-control" type="text"/>
+          </ng-persian-datepicker>
+          <!--          <input [(ngModel)]="to_date" class="form-control" name="to_date" type="number"/>-->
         </div>
         <input class="btn btn-success col-6 mt-3" type="submit"/>
       </form>
@@ -56,11 +62,17 @@
         </div>
         <div class="input-group mb-3">
           <span class="input-group-text">end time</span>
-          <input [(ngModel)]="edit_off_time_from_date" class="form-control" name="end_time" type="number"/>
+          <ng-persian-datepicker [dateFormat]="'YYYY-MM-DD'" [timeEnable]="false">
+            <input [formControl]="edit_off_time_from_date" class="form-control" type="text"/>
+          </ng-persian-datepicker>
+          <!--          <input [(ngModel)]="edit_off_time_from_date" class="form-control" name="end_time" type="number"/>-->
         </div>
         <div class="input-group mb-3">
           <span class="input-group-text">to date</span>
-          <input [(ngModel)]="edit_off_time_to_date" class="form-control" name="to_date" type="number"/>
+          <ng-persian-datepicker [dateFormat]="'YYYY-MM-DD'" [timeEnable]="false">
+            <input [formControl]="edit_off_time_to_date" class="form-control" type="text"/>
+          </ng-persian-datepicker>
+          <!--          <input [(ngModel)]="edit_off_time_to_date" class="form-control" name="to_date" type="number"/>-->
         </div>
         <input class="btn btn-success col-6 mt-3" type="submit"/>
       </form>
@@ -76,9 +88,9 @@
           <div class="input-group">
             <span class="input-group-text">off time id</span>
             <input [(ngModel)]="change_status_off_time_id" class="form-control" name="task_id" type="number"/>
-              <button (click)="ApproveOffTime()" class="btn btn-success">Approve off time</button>
-              <button (click)="RejectOffTime()" class="btn btn-danger">Reject off time</button>
-              <button (click)="SetOffTimeStatusWaiting()" class="btn btn-secondary">Waiting</button>
+            <button (click)="ApproveOffTime()" class="btn btn-success">Approve off time</button>
+            <button (click)="RejectOffTime()" class="btn btn-danger">Reject off time</button>
+            <button (click)="SetOffTimeStatusWaiting()" class="btn btn-secondary">Waiting</button>
           </div>
         </form>
       </div>

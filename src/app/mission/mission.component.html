@@ -17,13 +17,19 @@
         </div>
         <div class="input-group mb-3">
           <span class="input-group-text">from date</span>
-          <input [(ngModel)]="SubmitMissionFields.from_date" class="form-control" name="from_date" ngDefaultControl
-                 type="number"/>
+          <ng-persian-datepicker [dateFormat]="'YYYY-MM-DD'" [timeEnable]="false">
+            <input [formControl]="SubmitMissionFields.from_date" class="form-control" type="text"/>
+          </ng-persian-datepicker>
+          <!--          <input [(ngModel)]="SubmitMissionFields.from_date" class="form-control" name="from_date" ngDefaultControl-->
+          <!--                 type="number"/>-->
         </div>
         <div class="input-group mb-3">
           <span class="input-group-text">to date</span>
-          <input [(ngModel)]="SubmitMissionFields.to_date" class="form-control" name="to_date" ngDefaultControl
-                 type="number"/>
+          <ng-persian-datepicker [dateFormat]="'YYYY-MM-DD'" [timeEnable]="false">
+            <input [formControl]="SubmitMissionFields.to_date" class="form-control" type="text"/>
+          </ng-persian-datepicker>
+          <!--          <input [(ngModel)]="SubmitMissionFields.to_date" class="form-control" name="to_date" ngDefaultControl-->
+          <!--                 type="number"/>-->
         </div>
         <div class="input-group mb-3">
           <span class="input-group-text">project id</span>
@@ -81,13 +87,19 @@
         </div>
         <div class="input-group mb-3">
           <span class="input-group-text">from date</span>
-          <input [(ngModel)]="EditMissionFields.from_date" class="form-control" name="from_date" ngDefaultControl
-                 type="number"/>
+          <ng-persian-datepicker [dateFormat]="'YYYY-MM-DD'" [timeEnable]="false">
+            <input [formControl]="EditMissionFields.from_date" class="form-control" type="text"/>
+          </ng-persian-datepicker>
+          <!--          <input [(ngModel)]="EditMissionFields.from_date" class="form-control" name="from_date" ngDefaultControl-->
+          <!--                 type="number"/>-->
         </div>
         <div class="input-group mb-3">
           <span class="input-group-text">to date</span>
-          <input [(ngModel)]="EditMissionFields.to_date" class="form-control" name="to_date" ngDefaultControl
-                 type="number"/>
+          <ng-persian-datepicker [dateFormat]="'YYYY-MM-DD'" [timeEnable]="false">
+            <input [formControl]="EditMissionFields.to_date" class="form-control" type="text"/>
+          </ng-persian-datepicker>
+          <!--          <input [(ngModel)]="EditMissionFields.to_date" class="form-control" name="to_date" ngDefaultControl-->
+          <!--                 type="number"/>-->
         </div>
         <div class="input-group mb-3">
           <span class="input-group-text">project id</span>

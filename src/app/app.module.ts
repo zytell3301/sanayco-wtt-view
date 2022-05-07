@@ -7,7 +7,7 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {HttpClientModule} from "@angular/common/http";
 import {TasksComponent} from './tasks/tasks.component';
 import {RouterModule, Routes} from "@angular/router";
-import {FormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {OfftimeComponent} from './offtime/offtime.component';
 import {ProjectComponent} from './project/project.component';
 import {LoginComponent} from './login/login.component';
@@ -15,6 +15,7 @@ import {UsersComponent} from './users/users.component';
 import {MissionComponent} from './mission/mission.component';
 import {FoodsComponent} from './foods/foods.component';
 import {OrdersComponent} from './orders/orders.component';
+import {NgPersianDatepickerModule} from "ng-persian-datepicker";
 
 const routes: Routes = [
   {path: "tasks", component: TasksComponent},
@@ -46,6 +47,8 @@ const routes: Routes = [
     HttpClientModule,
     RouterModule.forRoot(routes),
     FormsModule,
+    NgPersianDatepickerModule,
+    ReactiveFormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
