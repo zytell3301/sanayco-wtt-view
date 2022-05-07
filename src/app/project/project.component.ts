@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {HttpClient} from "@angular/common/http";
+import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {GetProjectResponse} from "./GetProjectResponse";
 import {Router} from "@angular/router";
 
@@ -34,6 +34,7 @@ export class ProjectComponent implements OnInit {
 
   private httpClient: HttpClient;
   private router: Router;
+  private token: string = "";
 
   constructor(client: HttpClient, router: Router) {
     this.httpClient = client;
@@ -45,6 +46,11 @@ export class ProjectComponent implements OnInit {
       case true:
         this.router.navigate(["login"]);
     }
+    this.token = String(localStorage.getItem("_token"));
+  }
+
+  private defaultAuthHeaders() {
+    return new HttpHeaders({"_token": this.token});
   }
 
   RecordProject() {
@@ -52,20 +58,20 @@ export class ProjectComponent implements OnInit {
       description: this.description,
       name: this.name,
       creator_id: 4,
-    }).subscribe(response => {
+    }, {headers: this.defaultAuthHeaders()}).subscribe(response => {
       console.log(response);
     })
   }
 
   LoadProject() {
-    this.httpClient.get<GetProjectResponse>("https://localhost:5001/projects/get-project/" + this.edit_project_id).subscribe(response => {
-      switch (response.StatusCode == 0) {
+    this.httpClient.get<GetProjectResponse>("https://localhost:5001/projects/get-project/" + this.edit_project_id, {headers: this.defaultAuthHeaders()}).subscribe(response => {
+      switch (response.status_code == 0) {
         case true:
           this.edit_project_name = response.Project.Name;
           this.edit_project_description = response.Project.Description;
           break;
         default:
-          console.log("Something wrong. Status code: " + response.StatusCode)
+          console.log("Something wrong. Status code: " + response.status_code)
       }
     })
   }
@@ -75,7 +81,7 @@ export class ProjectComponent implements OnInit {
       project_id: this.edit_project_id,
       name: this.edit_project_name,
       description: this.edit_project_description,
-    }).subscribe(response => {
+    }, {headers: this.defaultAuthHeaders()}).subscribe(response => {
       console.log(response);
     });
   }
@@ -83,7 +89,7 @@ export class ProjectComponent implements OnInit {
   DeleteProject() {
     this.httpClient.post("https://localhost:5001/projects/delete-project", {
       project_id: this.delete_project_id,
-    }).subscribe(response => {
+    }, {headers: this.defaultAuthHeaders()}).subscribe(response => {
       console.log(response);
     })
   }
@@ -93,7 +99,7 @@ export class ProjectComponent implements OnInit {
       project_id: this.add_member_project_id,
       user_id: this.add_member_user_id,
       level: this.add_member_level,
-    }).subscribe(response => {
+    }, {headers: this.defaultAuthHeaders()}).subscribe(response => {
       console.log(response)
     })
   }
@@ -103,7 +109,7 @@ export class ProjectComponent implements OnInit {
     this.httpClient.post("https://localhost:5001/projects/remove-member", {
       project_id: this.delete_member_project_id,
       user_id: this.delete_member_user_id,
-    }).subscribe(response => {
+    }, {headers: this.defaultAuthHeaders()}).subscribe(response => {
       console.log(response);
     })
   }
@@ -113,7 +119,7 @@ export class ProjectComponent implements OnInit {
       project_id: this.update_project_member_project_id,
       user_id: this.update_project_member_user_id,
       level: this.update_project_member_level,
-    }).subscribe(response => {
+    }, {headers: this.defaultAuthHeaders()}).subscribe(response => {
       console.log(response)
     })
   }

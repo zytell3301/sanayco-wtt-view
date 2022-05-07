@@ -2,7 +2,6 @@ import {Component, OnInit} from '@angular/core';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {GetOffTimeResponse} from "./GetOffTimeResponse";
 import {Router} from "@angular/router";
-import {Token} from "@angular/compiler";
 
 @Component({
   selector: 'app-offtime',
@@ -103,7 +102,7 @@ export class OfftimeComponent implements OnInit {
       description: this.edit_off_time_description,
       from_date: this.edit_off_time_from_date,
       to_date: this.edit_off_time_to_date,
-    }).subscribe(response => {
+    }, {headers: this.defaultAuthHeaders()}).subscribe(response => {
       console.log(response);
     })
   }

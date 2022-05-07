@@ -36,9 +36,7 @@
       <div class="card-body">
         <form (ngSubmit)="DeleteFood()">
           <div class="input-group mb-3">
-            <div class="input-group-prepend">
-              <span class="input-group-text">food if</span>
-            </div>
+            <span class="input-group-text">food if</span>
             <input [(ngModel)]="DeleteFoodFields.food_id" class="form-control" name="food_id" type="number"/>
           </div>
           <input class="btn btn-success" type="submit"/>
@@ -54,23 +52,17 @@
     </div>
     <div class="card-body">
       <div class="input-group">
-        <div class="input-group-prepend">
-          <span class="input-group-text">food id</span>
-        </div>
+        <span class="input-group-text">food id</span>
         <input [(ngModel)]="EditFoodFields.food_id" class="form-control" name="food_id" ngDefaultControl type="number"/>
         <input (click)="GetFoodInfo()" class="btn btn-success" type="submit" value="Load task"/>
       </div>
       <form (submit)="UpdateFoodInfo()" class="mt-3">
         <div class="input-group mb-3">
-          <div class="input-group-prepend">
-            <span class="input-group-text">food title</span>
-          </div>
+          <span class="input-group-text">food title</span>
           <input [(ngModel)]="EditFoodFields.title" class="form-control" name="title" ngDefaultControl/>
         </div>
         <div class="input-group mb-3">
-          <div class="input-group-prepend">
-            <span class="input-group-text">food price</span>
-          </div>
+          <span class="input-group-text">food price</span>
           <input [(ngModel)]="EditFoodFields.price" class="form-control" name="price" ngDefaultControl type="number"/>
         </div>
         <input class="btn btn-success col-6 mt-3" type="submit"/>

@@ -6,93 +6,45 @@
     <div class="card-body">
       <form (submit)="CreateUser()">
         <div class="input-group mb-3">
-          <div class="input-group-prepend">
-            <span class="input-group-text">name</span>
-          </div>
-          <input type="text" name="name" class="form-control" [(ngModel)]="name" ngDefaultControl/>
+          <span class="input-group-text">name</span>
+          <input [(ngModel)]="name" class="form-control" name="name" ngDefaultControl type="text"/>
         </div>
         <div class="input-group mb-3">
-          <div class="input-group-prepend">
-            <span class="input-group-text">lastname</span>
-          </div>
-          <input type="text" name="lastname" class="form-control" [(ngModel)]="lastname" ngDefaultControl/>
+          <span class="input-group-text">lastname</span>
+          <input [(ngModel)]="lastname" class="form-control" name="lastname" ngDefaultControl type="text"/>
         </div>
         <div class="input-group mb-3">
-          <div class="input-group-prepend">
-            <span class="input-group-text">company level</span>
-          </div>
-          <input type="text" name="company_level" class="form-control" [(ngModel)]="company_level" ngDefaultControl/>
+          <span class="input-group-text">company level</span>
+          <input [(ngModel)]="company_level" class="form-control" name="company_level" ngDefaultControl type="text"/>
         </div>
         <div class="input-group mb-3">
-          <div class="input-group-prepend">
-            <span class="input-group-text">skill level</span>
-          </div>
-          <input type="text" name="skill_level" class="form-control" [(ngModel)]="skill_level" ngDefaultControl/>
+          <span class="input-group-text">skill level</span>
+          <input [(ngModel)]="skill_level" class="form-control" name="skill_level" ngDefaultControl type="text"/>
         </div>
         <div class="input-group mb-3">
-          <div class="input-group-prepend">
-            <span class="input-group-text">username</span>
-          </div>
-          <input type="username" name="username" class="form-control" [(ngModel)]="username" ngDefaultControl/>
+          <span class="input-group-text">username</span>
+          <input [(ngModel)]="username" class="form-control" name="username" ngDefaultControl type="username"/>
         </div>
         <div class="input-group mb-3">
-          <div class="input-group-prepend">
-            <span class="input-group-text">password</span>
-          </div>
-          <input type="password" name="password" class="form-control" [(ngModel)]="password" ngDefaultControl/>
+          <span class="input-group-text">password</span>
+          <input [(ngModel)]="password" class="form-control" name="password" ngDefaultControl type="password"/>
         </div>
-        <div class="row">
-          <div class="form-check col-3">
-            <input class="form-check-input" type="checkbox" value="" id="create-project"
-                   (click)="TogglePermission('create-project')">
-            <label class="form-check-label" for="create-project">
-              create-project
-            </label>
-          </div>
-          <div class="form-check col-3">
-            <input class="form-check-input" type="checkbox" value="" id="edit-project"
-                   (click)="TogglePermission('edit-project')">
-            <label class="form-check-label" for="edit-project">
-              edit-project
-            </label>
-          </div>
-          <div class="form-check col-3">
-            <input class="form-check-input" type="checkbox" value="" id="create-user"
-                   (click)="TogglePermission('register-user')">
-            <label class="form-check-label" for="create-user">
-              create-user
-            </label>
-          </div>
-          <div class="form-check col-3">
-            <input class="form-check-input" type="checkbox" value="" id="record-off-time"
-                   (click)="TogglePermission('record-off-time')">
-            <label class="form-check-label" for="record-off-time">
-              record-off-time
-            </label>
-          </div>
-          <div class="form-check col-3">
-            <input class="form-check-input" type="checkbox" value="" id="change-off-time-status"
-                   (click)="TogglePermission('change-off-time-status')">
-            <label class="form-check-label" for="change-off-time-status">
-              change-off-time-status
-            </label>
-          </div>
-          <div class="form-check col-3">
-            <input class="form-check-input" type="checkbox" value="" id="edit-user"
-                   (click)="TogglePermission('edit-user')">
-            <label class="form-check-label" for="edit-user">
-              edit-user
-            </label>
-          </div>
-          <div class="form-check col-3">
-            <input class="form-check-input" type="checkbox" value="" id="delete-user" name="delete-user"
-                   (click)="TogglePermission('delete-user')">
-            <label class="form-check-label" for="delete-user">
-              delete-user
+        <div class="input-group">
+          <label class="btn btn-secondary" for="profile_pic">Profile picture</label>
+          <input (change)="SetFile($event)" class="form-control" id="profile_pic"
+                 name="profile_picture" type="file"/>
+        </div>
+        <div class="row mt-4">
+          <div *ngFor="let permission of Permissions" class="form-check col-3">
+            <input (click)="TogglePermission(permission.title)" class="form-check-input" id="{{permission.title}}"
+                   type="checkbox"
+                   value="">
+            <label class="form-check-label" for="{{permission.title}}">
+              {{permission.title}}
             </label>
           </div>
         </div>
-        <input type="submit" class="btn btn-success col-6 mt-3"/>
+        <input class="btn btn-success col-6 mt-3" type="submit"/>
       </form>
     </div>
   </div>
@@ -104,13 +56,11 @@
       <div class="card-body">
         <form (ngSubmit)="DeleteUser()">
           <div class="input-group mb-3">
-            <div class="input-group-prepend">
-              <span class="input-group-text">username</span>
-            </div>
-            <input class="form-control" type="text" name="project_id" [(ngModel)]="delete_user_username"
-                   ngDefaultControl/>
+            <span class="input-group-text">username</span>
+            <input [(ngModel)]="delete_user_username" class="form-control" name="project_id" ngDefaultControl
+                   type="text"/>
           </div>
-          <input type="submit" class="btn btn-success"/>
+          <input class="btn btn-success" type="submit"/>
         </form>
       </div>
     </div>
@@ -124,105 +74,46 @@
     <div class="card-body">
       <div class="input-group mb-3">
         <span class="input-group-text">username</span>
-        <input type="text" name="user_username" class="form-control" [(ngModel)]="load_user_username"
-               ngDefaultControl/>
-        <button class="btn btn-success" (click)="LoadUser()">Load user!</button>
+        <input [(ngModel)]="load_user_username" class="form-control" name="user_username" ngDefaultControl
+               type="text"/>
+        <button (click)="LoadUser()" class="btn btn-success">Load user!</button>
       </div>
       <form (submit)="UpdateUser()">
         <div class="input-group mb-3">
-          <div class="input-group-prepend">
-            <span class="input-group-text">name</span>
-          </div>
-          <input type="text" name="name" class="form-control" [(ngModel)]="edit_user_name" ngDefaultControl/>
+          <span class="input-group-text">name</span>
+          <input [(ngModel)]="edit_user_name" class="form-control" name="name" ngDefaultControl type="text"/>
         </div>
         <div class="input-group mb-3">
-          <div class="input-group-prepend">
-            <span class="input-group-text">lastname</span>
-          </div>
-          <input type="text" name="lastname" class="form-control" [(ngModel)]="edit_user_lastname" ngDefaultControl/>
+          <span class="input-group-text">lastname</span>
+          <input [(ngModel)]="edit_user_lastname" class="form-control" name="lastname" ngDefaultControl type="text"/>
         </div>
         <div class="input-group mb-3">
-          <div class="input-group-prepend">
-            <span class="input-group-text">company level</span>
-          </div>
-          <input type="text" name="company_level" class="form-control" [(ngModel)]="edit_user_company_level"
-                 ngDefaultControl/>
+          <span class="input-group-text">company level</span>
+          <input [(ngModel)]="edit_user_company_level" class="form-control" name="company_level" ngDefaultControl
+                 type="text"/>
         </div>
         <div class="input-group mb-3">
-          <div class="input-group-prepend">
-            <span class="input-group-text">skill level</span>
-          </div>
-          <input type="text" name="skill_level" class="form-control" [(ngModel)]="edit_user_skill_level"
-                 ngDefaultControl/>
+          <span class="input-group-text">skill level</span>
+          <input [(ngModel)]="edit_user_skill_level" class="form-control" name="skill_level" ngDefaultControl
+                 type="text"/>
         </div>
         <div class="input-group mb-3">
-          <div class="input-group-prepend">
-            <span class="input-group-text">username</span>
-          </div>
-          <input type="username" name="username" class="form-control" [(ngModel)]="edit_user_username"
-                 ngDefaultControl/>
+          <span class="input-group-text">username</span>
+          <input [(ngModel)]="edit_user_username" class="form-control" name="username" ngDefaultControl
+                 type="username"/>
         </div>
         <div class="row">
-          <div class="form-check col-3">
-            <input class="form-check-input" type="checkbox" value="" id="edit_create-project" name="edit_create-project"
-                   (click)="edit_TogglePermission('create-project')"
-                   [(ngModel)]="edit_user_init_perms.create_project" ngDefaultControl>
-            <label class="form-check-label" for="edit_create-project">
-              create-project
-            </label>
-          </div>
-          <div class="form-check col-3">
-            <input class="form-check-input" type="checkbox" value="" id="edit_edit-project"
-                   [(ngModel)]="edit_user_init_perms.edit_project" ngDefaultControl name="edit_edit-project"
-                   (click)="edit_TogglePermission('edit-project')">
-            <label class="form-check-label" for="edit_edit-project">
-              edit-project
-            </label>
-          </div>
-          <div class="form-check col-3">
-            <input class="form-check-input" type="checkbox" value="" id="edit_create-user"
-                   [(ngModel)]="edit_user_init_perms.create_user" ngDefaultControl name="edit_create-user"
-                   (click)="edit_TogglePermission('register-user')">
-            <label class="form-check-label" for="edit_create-user">
-              create-user
-            </label>
-          </div>
-          <div class="form-check col-3">
-            <input class="form-check-input" type="checkbox" value="" id="edit_record-off-time"
-                   [(ngModel)]="edit_user_init_perms.record_off_time"
-                   name="edit_record-off-time"
-                   (click)="edit_TogglePermission('record-off-time')">
-            <label class="form-check-label" for="edit_record-off-time">
-              record-off-time
-            </label>
-          </div>
-          <div class="form-check col-3">
-            <input class="form-check-input" type="checkbox" value="" id="edit_change-off-time-status"
-                   [(ngModel)]="edit_user_init_perms.change_off_time_status"
-                   name="edit_change-off-time-status"
-                   (click)="edit_TogglePermission('change-off-time-status')">
-            <label class="form-check-label" for="edit_change-off-time-status">
-              change-off-time-status
-            </label>
-          </div>
-          <div class="form-check col-3">
-            <input class="form-check-input" type="checkbox" value="" id="edit_edit-user" name="edit_edit-user"
-                   [(ngModel)]="edit_user_init_perms.edit_user"
-                   (click)="edit_TogglePermission('edit-user')">
-            <label class="form-check-label" for="edit_edit-user">
-              edit-user
-            </label>
-          </div>
-          <div class="form-check col-3">
-            <input class="form-check-input" type="checkbox" value="" id="edit_delete-user" name="edit_edit-user"
-                   [(ngModel)]="edit_user_init_perms.delete_user"
-                   (click)="edit_TogglePermission('delete-user')">
-            <label class="form-check-label" for="edit_delete-user">
-              delete-user
+          <div *ngFor="let permission of Permissions" class="form-check col-3">
+            <input (click)="edit_TogglePermission(permission.title)" [(ngModel)]="permission.is_active"
+                   class="form-check-input" id="edit_{{permission.title}}" name="edit_{{permission.title}}}"
+                   ngDefaultControl
+                   type="checkbox" value="">
+            <label class="form-check-label" for="edit_{{permission.title}}">
+              {{permission.title}}
             </label>
           </div>
         </div>
-        <input type="submit" class="btn btn-success col-6 mt-3"/>
+        <input class="btn btn-success col-6 mt-3" type="submit"/>
       </form>
     </div>
   </div>

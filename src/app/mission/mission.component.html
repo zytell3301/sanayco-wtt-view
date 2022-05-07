@@ -11,23 +11,17 @@
                  type="text"/>
         </div>
         <div class="input-group mb-3">
-          <div class="input-group-prepend">
-            <span class="input-group-text">description</span>
-          </div>
+          <span class="input-group-text">description</span>
           <textarea [(ngModel)]="SubmitMissionFields.description" class="form-control" name="description"
                     ngDefaultControl></textarea>
         </div>
         <div class="input-group mb-3">
-          <div class="input-group-append">
-            <span class="input-group-text">from date</span>
-          </div>
+          <span class="input-group-text">from date</span>
           <input [(ngModel)]="SubmitMissionFields.from_date" class="form-control" name="from_date" ngDefaultControl
                  type="number"/>
         </div>
         <div class="input-group mb-3">
-          <div class="input-group-prepend">
-            <span class="input-group-text">to date</span>
-          </div>
+          <span class="input-group-text">to date</span>
           <input [(ngModel)]="SubmitMissionFields.to_date" class="form-control" name="to_date" ngDefaultControl
                  type="number"/>
         </div>
@@ -53,9 +47,7 @@
       <div class="card-body">
         <form (submit)="DeleteMission()">
           <div class="input-group mb-3">
-            <div class="input-group-prepend">
-              <span class="input-group-text">mission id</span>
-            </div>
+            <span class="input-group-text">mission id</span>
             <input [(ngModel)]="DeleteMissionFields.mission_id" class="form-control" name="mission_id" ngDefaultControl
                    type="number"/>
           </div>
@@ -72,9 +64,7 @@
     </div>
     <div class="card-body">
       <div class="input-group">
-        <div class="input-group-prepend">
-          <span class="input-group-text">mission id</span>
-        </div>
+        <span class="input-group-text">mission id</span>
         <input [(ngModel)]="GetMissionFields.mission_id" class="form-control" name="off_time_id" type="number"/>
         <input (click)="GetMission()" class="btn btn-success" type="submit" value="Load task"/>
       </div>
@@ -85,23 +75,17 @@
                  type="text"/>
         </div>
         <div class="input-group mb-3">
-          <div class="input-group-prepend">
-            <span class="input-group-text">description</span>
-          </div>
+          <span class="input-group-text">description</span>
           <textarea [(ngModel)]="EditMissionFields.description" class="form-control" name="description"
                     ngDefaultControl></textarea>
         </div>
         <div class="input-group mb-3">
-          <div class="input-group-append">
-            <span class="input-group-text">from date</span>
-          </div>
+          <span class="input-group-text">from date</span>
           <input [(ngModel)]="EditMissionFields.from_date" class="form-control" name="from_date" ngDefaultControl
                  type="number"/>
         </div>
         <div class="input-group mb-3">
-          <div class="input-group-prepend">
-            <span class="input-group-text">to date</span>
-          </div>
+          <span class="input-group-text">to date</span>
           <input [(ngModel)]="EditMissionFields.to_date" class="form-control" name="to_date" ngDefaultControl
                  type="number"/>
         </div>
@@ -127,14 +111,12 @@
       <div class="card-body">
         <form>
           <div class="input-group">
-            <div class="input-group-prepend">
-              <span class="input-group-text">task id</span>
-            </div>
+            <span class="input-group-text">mission id</span>
             <input [(ngModel)]="ChangeMissionStatusFields.mission_id" class="form-control" name="mission_id"
                    ngDefaultControl type="number"/>
-            <div class="btn-group">
-              <button (click)="SetMissionApproved()" class="btn btn-success">Approve mission</button>
-            </div>
+            <button (click)="ApproveMission()" class="btn btn-success">Approve mission</button>
+            <button (click)="RejectMission()" class="btn btn-danger">Reject mission</button>
+            <button (click)="SetMissionWaiting()" class="btn btn-secondary">Set mission waiting</button>
           </div>
         </form>
       </div>

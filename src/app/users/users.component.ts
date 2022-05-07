@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {Router} from "@angular/router";
-import {LoadUserResponse, User} from "./LoadUserResponse";
+import {LoadUserResponse} from "./LoadUserResponse";
 
 @Component({
   selector: 'app-users',
@@ -16,6 +16,7 @@ export class UsersComponent implements OnInit {
   public company_level: string = "";
   public password: string = "";
   public username: string = "";
+  public profile_picture!: File;
   private permissions: string[] = [];
 
   public delete_user_username: string = "";
@@ -31,6 +32,33 @@ export class UsersComponent implements OnInit {
 
   public edit_user_init_perms: Permissions = new Permissions();
 
+  public Permissions: Permission[] = [
+    new Permission('create-project', 'create_project'),
+    new Permission('edit-project', 'edit_project'),
+    new Permission('delete-project', 'delete_project'),
+    new Permission('add-project-member', 'add_project_member'),
+    new Permission('delete-project-member', 'delete_project_member'),
+    new Permission('edit-project-member', 'edit_project_member'),
+    new Permission('create-user', 'create_user'),
+    new Permission('edit-user', 'edit_user'),
+    new Permission('delete-user', 'delete_user'),
+    new Permission('record-off-time', 'record_off_time'),
+    new Permission('change-off-time-status', 'change_off_time_status'),
+    new Permission('cancel-off-time', 'cancel_off_time'),
+    new Permission('edit-off-time', 'edit_off_time'),
+    new Permission('record-mission', 'record_mission'),
+    new Permission('delete-mission', 'delete_mission'),
+    new Permission('edit-mission', 'edit_mission'),
+    new Permission('change-mission-status', 'change_mission_status'),
+    new Permission('create-food', 'create_food'),
+    new Permission('update-food-info', 'update_food_info'),
+    new Permission('delete-food', 'delete_food'),
+    new Permission('order-food', 'order_food'),
+    new Permission('cancel-food-order', 'cancel_food_order'),
+    new Permission('create-task', 'create_task'),
+    new Permission('edit-task', 'edit_task'),
+  ];
+
   private httpClient: HttpClient;
   private router: Router;
   private token: string = "";
@@ -38,6 +66,10 @@ export class UsersComponent implements OnInit {
   constructor(httpClient: HttpClient, router: Router) {
     this.httpClient = httpClient;
     this.router = router;
+  }
+
+  public SetFile($event: any) {
+    this.profile_picture = $event.target.files[0];
   }
 
   ngOnInit(): void {
@@ -74,9 +106,16 @@ export class UsersComponent implements OnInit {
     }
   }
 
+  private refreshPermissions() {
+    this.Permissions.forEach(value => {
+      value.is_active = false;
+    });
+    this.edit_user_permissions = [];
+  }
 
   public CreateUser() {
-    this.httpClient.post("https://localhost:5001/record-user", {
+    let formData = new FormData();
+    formData.append("data", JSON.stringify({
       name: this.name,
       lastname: this.lastname,
       skill_level: this.skill_level,
@@ -84,7 +123,9 @@ export class UsersComponent implements OnInit {
       password: this.password,
       username: this.username,
       permissions: this.permissions,
-    }, {headers: this.defaultAuthHeaders()}).subscribe(response => {
+    }));
+    formData.append("profile_picture", this.profile_picture);
+    this.httpClient.post("https://localhost:5001/record-user", formData, {headers: this.defaultAuthHeaders()}).subscribe(response => {
       console.log(response);
     });
   }
@@ -110,40 +151,21 @@ export class UsersComponent implements OnInit {
       this.edit_user_lastname = response.user.lastname;
       this.edit_user_name = response.user.name;
       this.edit_user_skill_level = response.user.skill_level;
+      this.refreshPermissions();
       response.permissions.forEach((value) => {
-        console.log(value.title)
         this.ActivatePermission(value.title);
       })
     });
   }
 
   private ActivatePermission(title: string) {
-    switch (title) {
-      case "register-user":
-        this.edit_user_init_perms.create_user = true;
-        break;
-      case "delete-user":
-        this.edit_user_init_perms.delete_user = true;
-        break;
-      case "create-project":
-        this.edit_user_init_perms.create_project = true;
-        break;
-      case "edit-project":
-        this.edit_user_init_perms.edit_project = true;
-        break;
-      case "record-off-time":
-        this.edit_user_init_perms.record_off_time = true;
-        break;
-      case "change-off-time-status":
-        this.edit_user_init_perms.change_off_time_status = true;
-        break;
-      case "edit-user":
-        this.edit_user_init_perms.edit_user = true;
-        break;
-      default:
-        return;
-    }
-    this.edit_TogglePermission(title);
+    this.Permissions.forEach((value => {
+      switch (title == value.title) {
+        case true:
+          this.edit_TogglePermission(title);
+          value.is_active = true;
+      }
+    }))
   }
 
   public UpdateUser() {
@@ -169,4 +191,15 @@ export class Permissions {
   public record_off_time: boolean = false;
   public change_off_time_status: boolean = false;
   public edit_user: boolean = false;
+}
+
+export class Permission {
+  public title: string;
+  public model: string;
+  public is_active: boolean = false;
+
+  public constructor(title: string, model: string) {
+    this.title = title;
+    this.model = model;
+  }
 }

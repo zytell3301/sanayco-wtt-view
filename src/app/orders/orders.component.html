@@ -22,9 +22,7 @@
       <div class="card-body">
         <form (submit)="CancelOrder()">
           <div class="input-group mb-3">
-            <div class="input-group-prepend">
               <span class="input-group-text">food id</span>
-            </div>
             <input [(ngModel)]="CancelOrderFields.order_id" class="form-control" name="food_id" type="number"/>
           </div>
           <input class="btn btn-success" type="submit"/>

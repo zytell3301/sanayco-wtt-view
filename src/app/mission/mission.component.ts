@@ -56,7 +56,7 @@ export class MissionComponent implements OnInit {
   public DeleteMission() {
     this.httpClient.post("https://localhost:5001/missions/delete-mission", {
       mission_id: this.DeleteMissionFields.mission_id,
-    }).subscribe(response => {
+    }, {headers: this.defaultAuthHeaders()}).subscribe(response => {
       console.log(response);
     });
   }
@@ -88,8 +88,24 @@ export class MissionComponent implements OnInit {
     })
   }
 
-  public SetMissionApproved() {
+  public ApproveMission() {
     this.httpClient.post("https://localhost:5001/missions/approve", {
+      mission_id: this.ChangeMissionStatusFields.mission_id,
+    }, {headers: this.defaultAuthHeaders()}).subscribe(response => {
+      console.log(response);
+    })
+  }
+
+  public RejectMission() {
+    this.httpClient.post("https://localhost:5001/missions/reject", {
+      mission_id: this.ChangeMissionStatusFields.mission_id,
+    }, {headers: this.defaultAuthHeaders()}).subscribe(response => {
+      console.log(response);
+    })
+  }
+
+  public SetMissionWaiting() {
+    this.httpClient.post("https://localhost:5001/missions/set-waiting", {
       mission_id: this.ChangeMissionStatusFields.mission_id,
     }, {headers: this.defaultAuthHeaders()}).subscribe(response => {
       console.log(response);

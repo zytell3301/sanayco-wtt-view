@@ -1,8 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
-import {Task} from "../entities/Task";
 import {GetTaskResponse} from "./GetTaskResponse";
-import {AppComponent} from "../app.component";
 import {Router} from "@angular/router";
 
 @Component({
@@ -30,6 +28,7 @@ export class TasksComponent implements OnInit {
 
   private httpClient: HttpClient;
   private router: Router;
+  private token: string = "";
 
   constructor(client: HttpClient, router: Router) {
     this.httpClient = client;
@@ -41,6 +40,12 @@ export class TasksComponent implements OnInit {
       case true:
         this.router.navigate(["/login"]);
     }
+
+    this.token = String(localStorage.getItem("_token"))
+  }
+
+  private defaultAuthHeaders() {
+    return new HttpHeaders({"_token": this.token});
   }
 
   submit() {
@@ -51,7 +56,7 @@ export class TasksComponent implements OnInit {
       title: this.title,
       end_time: this.end_time,
       work_location: this.work_location,
-    }).subscribe(response => {
+    }, {headers: this.defaultAuthHeaders()}).subscribe(response => {
       console.log(response);
     });
   }
@@ -59,15 +64,15 @@ export class TasksComponent implements OnInit {
   SubmitDeleteTask() {
     this.httpClient.post("https://localhost:5001/tasks/delete-task", {
       task_id: this.task_id,
-    }).subscribe(response => {
+    }, {headers: this.defaultAuthHeaders()}).subscribe(response => {
       console.log(response);
     });
   }
 
   GetTask() {
-    this.httpClient.get<GetTaskResponse>("https://localhost:5001/tasks/get-task/" + this.edit_task_id).subscribe((task) => {
+    this.httpClient.get<GetTaskResponse>("https://localhost:5001/tasks/get-task/" + this.edit_task_id, {headers: this.defaultAuthHeaders()}).subscribe((task) => {
       console.log(task);
-      switch (task.Code == 0) {
+      switch (task.status_code == 0) {
         case true:
           this.edit_task_id = task.Task.Id;
           this.edit_description = task.Task.Description;
@@ -94,7 +99,7 @@ export class TasksComponent implements OnInit {
       end_time: this.edit_end_time,
       title: this.edit_title,
       work_location: this.edit_work_location,
-    }).subscribe(response => {
+    }, {headers: this.defaultAuthHeaders()}).subscribe(response => {
       console.log(response);
     });
   }
@@ -102,7 +107,7 @@ export class TasksComponent implements OnInit {
   ApproveTask() {
     this.httpClient.post("https://localhost:5001/tasks/approve-task", {
       task_id: this.edit_status_task_id,
-    }).subscribe(response => {
+    }, {headers: this.defaultAuthHeaders()}).subscribe(response => {
       console.log(response);
     })
   }
@@ -110,7 +115,7 @@ export class TasksComponent implements OnInit {
   RejectTask() {
     this.httpClient.post("https://localhost:5001/tasks/reject-task", {
       task_id: this.edit_status_task_id,
-    }).subscribe(response => {
+    }, {headers: this.defaultAuthHeaders()}).subscribe(response => {
       console.log(response);
     });
   }
@@ -118,7 +123,7 @@ export class TasksComponent implements OnInit {
   SetTaskWaiting() {
     this.httpClient.post("https://localhost:5001/tasks/set-task-waiting", {
       task_id: this.edit_status_task_id,
-    }).subscribe(response => {
+    }, {headers: this.defaultAuthHeaders()}).subscribe(response => {
       console.log(response);
     });
   }
