@@ -1,5 +1,6 @@
 export class OffTime {
   Description: string = "";
   FromDate: string = "";
-  ToDate: string = ""
+  ToDate: string = "";
+  Status: string = "";
 }

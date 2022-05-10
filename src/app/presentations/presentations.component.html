@@ -1,0 +1,24 @@
+<div class="col-3">
+  <ng-persian-datepicker [dateFormat]="'YYYY-MM-DD'" [timeEnable]="false">
+    <input [formControl]="LoadPresentationRangeFields.fromDate" class="form-control" type="text"/>
+  </ng-persian-datepicker>
+  <ng-persian-datepicker [timeEnable]="false" [dateFormat]="'YYYY-MM-DD'">
+    <input [formControl]="LoadPresentationRangeFields.toDate" class="form-control" type="text"/>
+  </ng-persian-datepicker>
+  <button (click)="LoadPresentationRange()" class="btn btn-success mt-3">Load!</button>
+</div>
+<table class="table bg-white mb-3">
+  <thead>
+  <th>#</th>
+  <th>from</th>
+  <th>to</th>
+  </thead>
+  <tbody>
+  <tr *ngFor="let presentation of PresentationsRange;index as i">
+    <td>{{i + 1}}</td>
+    <td>{{presentation.Start}}</td>
+    <td>{{presentation.End}}</td>
+    <td></td>
+  </tr>
+  </tbody>
+</table>

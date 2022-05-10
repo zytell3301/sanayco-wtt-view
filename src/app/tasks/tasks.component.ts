@@ -4,6 +4,7 @@ import {GetTaskResponse} from "./GetTaskResponse";
 import {Router} from "@angular/router";
 import {FormControl} from "@angular/forms";
 import moment from "moment-jalaali";
+import {Task} from "../entities/Task";
 
 @Component({
   selector: 'app-tasks',
@@ -33,6 +34,9 @@ export class TasksComponent implements OnInit {
   private httpClient: HttpClient;
   private router: Router;
   private token: string = "";
+
+  public taskRange: Task[] = [];
+  public GetTaskRangeFields: GetTaskRangeFields = new GetTaskRangeFields();
 
   constructor(client: HttpClient, router: Router) {
     this.httpClient = client;
@@ -132,4 +136,28 @@ export class TasksComponent implements OnInit {
       console.log(response);
     });
   }
+
+  GetTaskRange() {
+    this.httpClient
+      .get<GetTaskRangeResponse>("https://localhost:5001/tasks/get-range/" + moment(this.GetTaskRangeFields.fromDate.value, "YYYY-MM-DD").valueOf() / 1000 + "/" + moment(this.GetTaskRangeFields.toDate.value, "YYYY-MM-DD").valueOf() / 1000 + "/" + this.GetTaskRangeFields.projectId + "/" + this.GetTaskRangeFields.workLocation, {headers: this.defaultAuthHeaders()})
+      .subscribe(response => {
+        switch (response.status_code != 0) {
+          case true:
+            return;
+        }
+        this.taskRange = response.tasks;
+      });
+  }
+}
+
+export class GetTaskRangeResponse {
+  public status_code: number = 1;
+  public tasks: Task[] = [];
+}
+
+export class GetTaskRangeFields {
+  public fromDate: FormControl = new FormControl();
+  public toDate: FormControl = new FormControl();
+  public projectId: number = 0;
+  public workLocation: string = "";
 }

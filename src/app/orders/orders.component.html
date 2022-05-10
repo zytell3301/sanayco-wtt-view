@@ -4,12 +4,28 @@
       <h1>Order food</h1>
     </div>
     <div class="card-body">
-      <form (submit)="RecordOrder()">
-        <div class="input-group mb-3">
-          <span class="input-group-text">food id</span>
-          <input [(ngModel)]="RecordOrderFields.food_id" class="form-control" name="food_id" ngDefaultControl
-                 type="number"/>
-        </div>
+      <form>
+        <ng-persian-datepicker [dateFormat]="'YYYY-MM-DD'" [timeEnable]="false">
+          <input [formControl]="RecordOrderFields.date" type="text"/>
+        </ng-persian-datepicker>
+        <table class="table">
+          <thead>
+          <th>#</th>
+          <th>title</th>
+          <th>price</th>
+          <th>order</th>
+          </thead>
+          <tbody>
+          <tr *ngFor="let food of FoodsList;index as i">
+            <td>{{i + 1}}</td>
+            <td>{{food.title}}</td>
+            <td>{{food.price}}</td>
+            <td>
+              <button (click)="RecordOrder(food.id)" class="btn btn-success">Order</button>
+            </td>
+          </tr>
+          </tbody>
+        </table>
         <input class="btn btn-success col-6 mt-3" type="submit"/>
       </form>
     </div>
@@ -22,7 +38,7 @@
       <div class="card-body">
         <form (submit)="CancelOrder()">
           <div class="input-group mb-3">
-              <span class="input-group-text">food id</span>
+            <span class="input-group-text">food id</span>
             <input [(ngModel)]="CancelOrderFields.order_id" class="form-control" name="food_id" type="number"/>
           </div>
           <input class="btn btn-success" type="submit"/>

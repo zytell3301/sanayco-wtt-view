@@ -96,4 +96,31 @@
       </div>
     </div>
   </div>
+  <div class="mt-3 mb-3">
+    <div class="col-3">
+      <ng-persian-datepicker [dateFormat]="'YYYY-MM-DD'" [timeEnable]="false">
+        <input [formControl]="loadOffTimeRangeFields.fromDate" class="form-control" type="text"/>
+      </ng-persian-datepicker>
+      <ng-persian-datepicker [dateFormat]="'YYYY-MM-DD'" [timeEnable]="false" class="mt-3">
+        <input [formControl]="loadOffTimeRangeFields.toDate" class="form-control" type="text"/>
+      </ng-persian-datepicker>
+      <button (click)="LoadOffTimeRange()" class="mt-3 btn btn-success">Load!</button>
+    </div>
+    <table class="table bg-white mt-3">
+      <thead>
+      <th>#</th>
+      <th>description</th>
+      <th>status</th>
+      <th>from date</th>
+      <th>to date</th>
+      </thead>
+      <tr *ngFor="let offTime of offTmeRange;index as i">
+        <td>{{i + 1}}</td>
+        <td>{{offTime.Description}}</td>
+        <td>{{offTime.Status}}</td>
+        <td>{{offTime.FromDate}}</td>
+        <td>{{offTime.ToDate}}</td>
+      </tr>
+    </table>
+  </div>
 </div>

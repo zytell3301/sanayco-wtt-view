@@ -4,6 +4,7 @@ import {GetOffTimeResponse} from "./GetOffTimeResponse";
 import {Router} from "@angular/router";
 import {FormControl} from "@angular/forms";
 import moment from "moment-jalaali";
+import {OffTime} from "../entities/OffTime";
 
 @Component({
   selector: 'app-offtime',
@@ -29,6 +30,9 @@ export class OfftimeComponent implements OnInit {
   private httpClient: HttpClient;
   private router: Router;
   private token: string = "";
+
+  public loadOffTimeRangeFields = new LoadOffTimeRangeFields();
+  public offTmeRange: OffTime[] = [];
 
   constructor(client: HttpClient, router: Router) {
     this.httpClient = client;
@@ -108,4 +112,22 @@ export class OfftimeComponent implements OnInit {
       console.log(response);
     })
   }
+
+  LoadOffTimeRange() {
+    this.httpClient.get<LoadOffTimeRangeResponse>("https://localhost:5001/off-times/get-range/" + moment(this.loadOffTimeRangeFields.fromDate.value, "YYYY-MM-DD").valueOf() / 1000 + "/" + moment(this.loadOffTimeRangeFields.toDate.value, "YYYY-MM-DD").valueOf() / 1000, {headers: this.defaultAuthHeaders()})
+      .subscribe(response => {
+        this.offTmeRange = response.off_times;
+      });
+  }
+}
+
+export class LoadOffTimeRangeResponse {
+  public status_code: number = 1;
+  public off_times: OffTime[] = [];
+}
+
+export class LoadOffTimeRangeFields {
+  public fromDate: FormControl = new FormControl();
+  public toDate: FormControl = new FormControl();
+  public projectId = 0;
 }

@@ -16,6 +16,7 @@ import {MissionComponent} from './mission/mission.component';
 import {FoodsComponent} from './foods/foods.component';
 import {OrdersComponent} from './orders/orders.component';
 import {NgPersianDatepickerModule} from "ng-persian-datepicker";
+import { PresentationsComponent } from './presentations/presentations.component';
 
 const routes: Routes = [
   {path: "tasks", component: TasksComponent},
@@ -26,6 +27,7 @@ const routes: Routes = [
   {path: "missions", component: MissionComponent},
   {path: "foods", component: FoodsComponent},
   {path: "orders", component: OrdersComponent},
+  {path: "", component: PresentationsComponent},
 ]
 
 @NgModule({
@@ -38,7 +40,8 @@ const routes: Routes = [
     UsersComponent,
     MissionComponent,
     FoodsComponent,
-    OrdersComponent
+    OrdersComponent,
+    PresentationsComponent
   ],
   imports: [
     BrowserModule,

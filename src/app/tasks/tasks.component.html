@@ -118,4 +118,45 @@
       </div>
     </div>
   </div>
+  <div class="mt-3 mb-3">
+    <div class="col-3 row">
+      <ng-persian-datepicker [dateFormat]="'YYYY-MM-DD'" [timeEnable]="false" class="mb-3">
+        <div class="input-group">
+          <span class="input-group-text">from date:</span>
+          <input [formControl]="GetTaskRangeFields.fromDate" class="form-control"/>
+        </div>
+      </ng-persian-datepicker>
+      <ng-persian-datepicker [dateFormat]="'YYYY-MM-DD'" [timeEnable]="false">
+        <div class="input-group">
+          <span class="input-group-text">to date:</span>
+          <input [formControl]="GetTaskRangeFields.toDate" class="form-control"/>
+        </div>
+      </ng-persian-datepicker>
+      <input [(ngModel)]="GetTaskRangeFields.projectId" class="form-control mt-3" name="project_id" type="number"/>
+      <input [(ngModel)]="GetTaskRangeFields.workLocation" class="form-control mt-3" name="work_location" type="text"/>
+      <button (click)="GetTaskRange()" class="btn btn-success mt-3">Load!</button>
+    </div>
+    <table class="table bg-white mt-3">
+      <thead>
+      <th>#</th>
+      <th>project id</th>
+      <th>status</th>
+      <th>title</th>
+      <th>work location</th>
+      <th>points</th>
+      <th>start time</th>
+      </thead>
+      <tbody>
+      <tr *ngFor="let task of taskRange;index as i">
+        <td>{{i + 1}}</td>
+        <td>{{task.ProjectId}}</td>
+        <td>{{task.Status}}</td>
+        <td>{{task.Title}}</td>
+        <td>{{task.WorkLocation}}</td>
+        <td>{{task.Points}}</td>
+        <td>{{task.StartTime}}</td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
 </div>

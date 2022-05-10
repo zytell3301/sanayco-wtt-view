@@ -19,6 +19,8 @@ export class MissionComponent implements OnInit {
   public GetMissionFields: GetMissionFields = new GetMissionFields();
   public EditMissionFields: EditMissionFields = new EditMissionFields();
   public ChangeMissionStatusFields: ChangeMissionStatusFields = new ChangeMissionStatusFields();
+  public LoadMissionRangeFields = new LoadMissionRangeFields();
+  public MissionRange: RangeMission[] = [];
 
   constructor(router: Router, httpClient: HttpClient) {
     this.httpClient = httpClient;
@@ -112,6 +114,12 @@ export class MissionComponent implements OnInit {
       console.log(response);
     })
   }
+
+  public LoadMissionRange() {
+    this.httpClient.get<LoadMissionRangeResponse>("https://localhost:5001/missions/get-range/" + moment(this.LoadMissionRangeFields.fromDate.value, "YYYY-MM-DD").valueOf() / 1000 + "/" + moment(this.LoadMissionRangeFields.toDate.value, "YYYY-MM-DD").valueOf() / 1000 + "/" + this.LoadMissionRangeFields.projectId, {headers: this.defaultAuthHeaders()}).subscribe(response => {
+      this.MissionRange = response.missions;
+    });
+  }
 }
 
 class SubmitMissionFields {
@@ -160,4 +168,26 @@ class Mission {
 
 class ChangeMissionStatusFields {
   public mission_id: number = 0;
+}
+
+class LoadMissionRangeFields {
+  public fromDate = new FormControl();
+  public toDate = new FormControl();
+  public projectId = 0;
+}
+
+class LoadMissionRangeResponse {
+  public status_code = 0;
+  public missions: RangeMission[] = [];
+}
+
+class RangeMission {
+  public Description: string = "";
+  public FromDate: string = "";
+  public Id: number = 0;
+  public Location: string = "";
+  public MemberId: number = 0;
+  public ProjectId: number = 0;
+  public Title: string = "";
+  public ToDate: string = "";
 }

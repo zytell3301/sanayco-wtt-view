@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {GetProjectResponse} from "./GetProjectResponse";
 import {Router} from "@angular/router";
+import {Project} from "../entities/Project";
 
 @Component({
   selector: 'app-project',
@@ -29,6 +30,10 @@ export class ProjectComponent implements OnInit {
   update_project_member_user_id: undefined = undefined;
   update_project_member_project_id: undefined = undefined;
   update_project_member_level: undefined = undefined;
+
+  projectRange: Project[] = [];
+
+  projectSearchTerm = "";
 
   private creator: number = 4;
 
@@ -114,6 +119,12 @@ export class ProjectComponent implements OnInit {
     })
   }
 
+  LoadProjectRange() {
+    this.httpClient.get<GetProjectRangeResponse>("https://localhost:5001/projects/search/" + this.projectSearchTerm, {headers: this.defaultAuthHeaders()}).subscribe(response => {
+      this.projectRange = response.projects;
+    });
+  }
+
   UpdateProjectMember() {
     this.httpClient.post("https://localhost:5001/projects/edit-member", {
       project_id: this.update_project_member_project_id,
@@ -123,4 +134,9 @@ export class ProjectComponent implements OnInit {
       console.log(response)
     })
   }
+}
+
+class GetProjectRangeResponse {
+  status_code = 1;
+  projects: Project[] = [];
 }
